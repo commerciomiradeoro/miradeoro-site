@@ -4,55 +4,779 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Miradeoro Sagl | Metalli preziosi e monete</title>
-  <meta name="description" content="Miradeoro Sagl - compravendita metalli preziosi e monete da investimento." />
+  <meta name="description" content="Miradeoro Sagl - compravendita metalli preziosi, lingotti e monete da investimento in Svizzera." />
   <style>
-    body { margin:0; font-family: Arial; background:#0c0a09; color:#fff; }
-    .container { width:90%; margin:auto; }
-    header { padding:20px; border-bottom:1px solid #333; }
-    h1 { margin:0; }
-    section { padding:40px 0; }
-    .box { border:1px solid #333; padding:20px; margin-bottom:20px; border-radius:10px; }
-    .gold { color:#fbbf24; }
+    :root {
+      --bg: #0b0b0d;
+      --bg-soft: #131316;
+      --card: rgba(255,255,255,0.05);
+      --card-strong: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.10);
+      --text: #f5f2ea;
+      --muted: #c8c1b2;
+      --gold: #d4a94d;
+      --gold-soft: #f3d38a;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(212,169,77,0.18), transparent 28%),
+        radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 20%),
+        linear-gradient(180deg, #0a0a0c 0%, #121215 45%, #0a0a0c 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(10,10,12,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .topbar-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 14px 0;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f0d18a 0%, #c58d1d 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 10px 20px rgba(197,141,29,0.22);
+      position: relative;
+    }
+
+    .logo-mark::before,
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border: 2px solid rgba(11,11,13,0.75);
+      border-radius: 12px;
+    }
+
+    .logo-mark::after {
+      inset: 18px;
+      border-radius: 999px;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.96rem;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--gold-soft); }
+
+    .nav .cta {
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e8bf68, #c58d1d);
+      color: #111;
+      font-weight: 700;
+      box-shadow: 0 12px 25px rgba(197,141,29,0.22);
+    }
+
+    .hero {
+      padding: 72px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border: 1px solid rgba(212,169,77,0.18);
+      background: rgba(212,169,77,0.08);
+      border-radius: 999px;
+      color: var(--gold-soft);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 6vw, 5.3rem);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      max-width: 760px;
+    }
+
+    .gold { color: var(--gold-soft); }
+
+    .hero-text {
+      margin: 22px 0 0;
+      max-width: 720px;
+      font-size: 1.08rem;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #efc56d, #c58d1d);
+      color: #111;
+      box-shadow: 0 16px 35px rgba(197,141,29,0.28);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat-card,
+    .hero-panel,
+    .quote-card,
+    .service-card,
+    .coin-card,
+    .contact-card,
+    .notice {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card {
+      padding: 18px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .stat-value {
+      margin-top: 6px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .hero-panel {
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    }
+
+    .panel-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #45d483;
+      box-shadow: 0 0 0 8px rgba(69,212,131,0.12);
+    }
+
+    .mini-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .quote-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quote-card {
+      padding: 18px;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .quote-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .quote-code {
+      font-size: 0.83rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .quote-name {
+      margin-top: 4px;
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .quote-price {
+      text-align: right;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .quote-unit,
+    .quote-extra {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .main-section {
+      padding: 18px 0 28px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.8;
+    }
+
+    .services-grid,
+    .coins-grid,
+    .contacts-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .service-card,
+    .coin-card,
+    .contact-card {
+      padding: 22px;
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(239,197,109,0.18), rgba(197,141,29,0.22));
+      border: 1px solid rgba(212,169,77,0.18);
+      color: var(--gold-soft);
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+
+    .service-card h3,
+    .coin-card h3,
+    .contact-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+
+    .service-card p,
+    .coin-card p,
+    .contact-card p,
+    .contact-card a {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .coins-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .coin-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coin-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% 70% auto;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(212,169,77,0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .coin-meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .coin-prices {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .coin-price-label {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .coin-price-value {
+      margin-top: 4px;
+      font-weight: 800;
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+
+    .contacts-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .contact-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--gold-soft);
+      font-size: 1rem;
+    }
+
+    .notice {
+      padding: 18px 22px;
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    footer {
+      padding: 30px 0 55px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .services-grid,
+      .coins-grid,
+      .contacts-grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner,
+      .section-heading,
+      .footer-inner {
+        align-items: start;
+      }
+
+      .hero-actions,
+      .nav {
+        width: 100%;
+      }
+
+      .btn,
+      .nav .cta {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="logo-wrap">
+        <div class="logo-mark"></div>
+        <div>
+          <p class="brand-title">Miradeoro Sagl</p>
+          <p class="brand-subtitle">Metalli preziosi e monete da investimento</p>
+        </div>
+      </div>
 
-<header class="container">
-  <h1>Miradeoro Sagl</h1>
-  <p>Compravendita metalli preziosi e monete da investimento</p>
-</header>
+      <nav class="nav">
+        <a href="#quotazioni">Quotazioni</a>
+        <a href="#servizi">Servizi</a>
+        <a href="#monete">Monete</a>
+        <a href="#contatti">Contatti</a>
+        <a class="cta" href="mailto:commercio@miradeoro.com">Richiedi quotazione</a>
+      </nav>
+    </div>
+  </header>
 
-<section class="container">
-  <h2>Prezzi aggiornati di <span class="gold">oro</span>, argento e monete</h2>
-  <p>Servizio di compravendita metalli preziosi con quotazioni indicative.</p>
-</section>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Svizzera · Compravendita professionale</div>
+          <h1>Valore reale in <span class="gold">oro</span>, argento, lingotti e monete.</h1>
+          <p class="hero-text">
+            Miradeoro Sagl offre un servizio diretto, riservato e professionale per la compravendita di metalli preziosi e monete da investimento,
+            con quotazioni indicative, assistenza rapida e contatto immediato.
+          </p>
 
-<section class="container">
-  <h2>Quotazioni metalli</h2>
-  <div class="box">Oro: CHF 2'700 / oz</div>
-  <div class="box">Argento: CHF 26 / oz</div>
-  <div class="box">Platino: CHF 850 / oz</div>
-  <div class="box">Palladio: CHF 900 / oz</div>
-</section>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#quotazioni">Visualizza quotazioni</a>
+            <a class="btn btn-secondary" href="#contatti">Contatta Miradeoro</a>
+          </div>
 
-<section class="container">
-  <h2>Monete e lingotti</h2>
-  <div class="box">Krugerrand 1 oz - CHF 2860 / 2975</div>
-  <div class="box">Vreneli 20 Fr - CHF 540 / 600</div>
-  <div class="box">Lingotto 100g - CHF 9350 / 9670</div>
-</section>
+          <div class="stats">
+            <div class="stat-card">
+              <div class="stat-label">Metalli trattati</div>
+              <div class="stat-value">4 principali</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Listino</div>
+              <div class="stat-value">CHF indicativi</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Contatto</div>
+              <div class="stat-value">Diretto e rapido</div>
+            </div>
+          </div>
+        </div>
 
-<section class="container">
-  <h2>Contatti</h2>
-  <p>Miradeoro Sagl</p>
-  <p>Viale Stazione 2, 6817 Maroggia</p>
-  <p>Telefono: 091 210 46 67</p>
-  <p>Email: commercio@miradeoro.com</p>
-</section>
+        <div class="hero-panel" id="quotazioni">
+          <div class="panel-top">
+            <div>
+              <h2 class="panel-title">Quotazioni metalli</h2>
+              <div class="mini-note">Valori indicativi in CHF per oncia troy</div>
+            </div>
+            <div class="live-dot"></div>
+          </div>
 
-<footer class="container">
-  <p>© 2026 Miradeoro Sagl</p>
-</footer>
+          <div class="quote-list">
+            <div class="quote-card">
+              <div class="quote-row">
+                <div>
+                  <div class="quote-code">XAU</div>
+                  <div class="quote-name">Oro</div>
+                </div>
+                <div class="quote-price">CHF 2'700</div>
+              </div>
+              <div class="quote-extra">Asset rifugio di riferimento</div>
+            </div>
 
+            <div class="quote-card">
+              <div class="quote-row">
+                <div>
+                  <div class="quote-code">XAG</div>
+                  <div class="quote-name">Argento</div>
+                </div>
+                <div class="quote-price">CHF 26</div>
+              </div>
+              <div class="quote-extra">Soluzione dinamica e accessibile</div>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-row">
+                <div>
+                  <div class="quote-code">XPT</div>
+                  <div class="quote-name">Platino</div>
+                </div>
+                <div class="quote-price">CHF 850</div>
+              </div>
+              <div class="quote-extra">Metallo raro ad uso industriale e patrimoniale</div>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-row">
+                <div>
+                  <div class="quote-code">XPD</div>
+                  <div class="quote-name">Palladio</div>
+                </div>
+                <div class="quote-price">CHF 900</div>
+              </div>
+              <div class="quote-extra">Quotazioni soggette a rapida variabilità</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-section" id="servizi">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Servizi Miradeoro</h2>
+            <p>Una presenza essenziale, elegante e credibile per presentare l’attività, i metalli trattati e i principali prodotti da investimento.</p>
+          </div>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">◆</div>
+            <h3>Acquisto e vendita metalli</h3>
+            <p>Operatività su oro, argento, platino e palladio con quotazioni indicative e supporto dedicato.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">◎</div>
+            <h3>Monete da investimento</h3>
+            <p>Selezione di monete classiche e riconosciute dal mercato, con indicazione prezzi acquisto e vendita.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">▣</div>
+            <h3>Lingotti e valutazioni</h3>
+            <p>Richieste rapide via telefono o email per disponibilità, valutazioni e aggiornamenti di listino.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-section" id="monete">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Monete e lingotti</h2>
+            <p>Valori indicativi in CHF. I prezzi possono essere aggiornati in base al mercato, alla disponibilità e allo spread applicato.</p>
+          </div>
+        </div>
+
+        <div class="coins-grid">
+          <article class="coin-card">
+            <h3>Krugerrand 1 oz</h3>
+            <div class="coin-meta">
+              <span>Metallo: Oro</span>
+              <span>Peso: 31.1 g</span>
+              <span>Purezza: 916.7‰</span>
+            </div>
+            <div class="coin-prices">
+              <div>
+                <div class="coin-price-label">Acquisto</div>
+                <div class="coin-price-value">CHF 2'860</div>
+              </div>
+              <div>
+                <div class="coin-price-label">Vendita</div>
+                <div class="coin-price-value">CHF 2'975</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="coin-card">
+            <h3>Vreneli 20 Franchi</h3>
+            <div class="coin-meta">
+              <span>Metallo: Oro</span>
+              <span>Peso: 6.45 g</span>
+              <span>Purezza: 900‰</span>
+            </div>
+            <div class="coin-prices">
+              <div>
+                <div class="coin-price-label">Acquisto</div>
+                <div class="coin-price-value">CHF 540</div>
+              </div>
+              <div>
+                <div class="coin-price-label">Vendita</div>
+                <div class="coin-price-value">CHF 600</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="coin-card">
+            <h3>Lingotto 100 g</h3>
+            <div class="coin-meta">
+              <span>Metallo: Oro</span>
+              <span>Peso: 100 g</span>
+              <span>Purezza: 999.9‰</span>
+            </div>
+            <div class="coin-prices">
+              <div>
+                <div class="coin-price-label">Acquisto</div>
+                <div class="coin-price-value">CHF 9'350</div>
+              </div>
+              <div>
+                <div class="coin-price-label">Vendita</div>
+                <div class="coin-price-value">CHF 9'670</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-section" id="contatti">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Contatti</h2>
+            <p>Per quotazioni aggiornate, disponibilità o appuntamenti, contatta direttamente Miradeoro Sagl.</p>
+          </div>
+        </div>
+
+        <div class="contacts-grid">
+          <div class="contact-card">
+            <div class="contact-top">
+              <div class="contact-icon">☎</div>
+              <h3>Telefono</h3>
+            </div>
+            <p><a href="tel:+41912104667">091 210 46 67</a></p>
+            <p>Consulenza su appuntamento</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-top">
+              <div class="contact-icon">✉</div>
+              <h3>Email</h3>
+            </div>
+            <p><a href="mailto:commercio@miradeoro.com">commercio@miradeoro.com</a></p>
+            <p>Risposta rapida per richieste e quotazioni</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-top">
+              <div class="contact-icon">⌘</div>
+              <h3>Sede</h3>
+            </div>
+            <p>Viale Stazione 2</p>
+            <p>6817 Maroggia, Ticino, Svizzera</p>
+          </div>
+        </div>
+
+        <div class="notice">
+          Le quotazioni pubblicate sul sito sono indicative e soggette a variazioni di mercato. Per prezzi aggiornati e disponibilità effettiva,
+          si invita a contattare direttamente Miradeoro Sagl.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 Miradeoro Sagl. Tutti i diritti riservati.</div>
+      <div>Design essenziale, elegante e orientato alla fiducia.</div>
+    </div>
+  </footer>
 </body>
 </html>
