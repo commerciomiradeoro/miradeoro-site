@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Miradeoro Sagl | Metalli preziosi e monete</title>
-  <meta name="description" content="Miradeoro Sagl - compravendita metalli preziosi, lingotti e monete da investimento in Svizzera." />
+  <title>Acquisto oro Ticino | Miradeoro Sagl Maroggia</title>
+  <meta name="description" content="Acquisto oro in Ticino con quotazioni al grammo in CHF ed EUR. Miradeoro Sagl a Maroggia: oro, argento, platino, palladio, monete e lingotti." />
+  <meta property="og:title" content="Miradeoro Sagl | Acquisto oro Ticino" />
+  <meta property="og:description" content="Quotazioni indicative al grammo, monete e lingotti, contatto rapido da Maroggia in Ticino." />
+  <meta property="og:type" content="website" />
   <style>
     :root {
       --bg: #0b0b0d;
@@ -625,11 +628,11 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="eyebrow">Svizzera · Quotazioni al grammo · Contatto diretto</div>
-          <h1>Valore reale in <span class="gold">oro</span>, argento, lingotti e monete.</h1>
+          <div class="eyebrow">Acquisto oro Ticino · Quotazioni al grammo · Contatto diretto</div>
+          <h1>Acquisto e vendita di <span class="gold">oro</span>, argento, lingotti e monete in Ticino.</h1>
           <p class="hero-text">
-            Miradeoro Sagl offre un servizio diretto, riservato e professionale per la compravendita di metalli preziosi, lingotti e monete da investimento,
-            con quotazioni indicative al grammo, prezzi di acquisto e vendita e un canale rapido per richieste immediate.
+            Miradeoro Sagl, con sede a Maroggia in Ticino, offre un servizio diretto, riservato e professionale per la compravendita di metalli preziosi,
+            lingotti e monete da investimento, con quotazioni indicative al grammo, prezzi di acquisto e vendita e un canale rapido per richieste immediate.
           </p>
 
           <div class="hero-actions">
@@ -647,8 +650,8 @@
               <div class="stat-value">CHF / EUR al grammo</div>
             </div>
             <div class="stat-card">
-              <div class="stat-label">Operatività</div>
-              <div class="stat-value">Richieste rapide su appuntamento</div>
+              <div class="stat-label">Zona servita</div>
+              <div class="stat-value">Maroggia · Ticino · Svizzera</div>
             </div>
           </div>
         </div>
@@ -729,7 +732,7 @@
         <div class="section-heading">
           <div>
             <h2>Servizi principali</h2>
-            <p>Una presenza essenziale, elegante e credibile per presentare l’attività, i metalli trattati e i principali prodotti da investimento.</p>
+            <p>Una presenza essenziale, elegante e credibile per presentare l’attività, i metalli trattati e i principali prodotti da investimento in Ticino.</p>
           </div>
         </div>
 
@@ -865,6 +868,25 @@
       </div>
     </section>
 
+    <section class="main-section" id="lead">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Richiedi quotazione immediata</h2>
+            <p>Invia una richiesta veloce e ricevi una risposta diretta su prezzi aggiornati e disponibilità.</p>
+          </div>
+        </div>
+
+        <div class="calc-card">
+          <h3>Contatto rapido</h3>
+          <p style="margin-bottom:12px;">Per una risposta immediata utilizza WhatsApp oppure chiamaci direttamente.</p>
+          <a class="btn btn-primary" href="https://wa.me/41912104667" target="_blank">Apri WhatsApp</a>
+          <div style="height:10px"></div>
+          <a class="btn btn-secondary" href="tel:+41912104667">Chiama ora</a>
+        </div>
+      </div>
+    </section>
+
     <section class="main-section" id="contatti">
       <div class="container">
         <div class="section-heading">
@@ -904,8 +926,7 @@
         </div>
 
         <div class="notice">
-          Le quotazioni pubblicate sul sito sono indicative e soggette a variazioni di mercato. Per prezzi aggiornati e disponibilità effettiva,
-          si invita a contattare direttamente Miradeoro Sagl.
+          Le quotazioni pubblicate sul sito sono indicative e soggette a variazioni di mercato. Per prezzi aggiornati, disponibilità effettiva e quotazioni operative di acquisto o vendita in Ticino, si invita a contattare direttamente Miradeoro Sagl.
         </div>
       </div>
     </section>
@@ -936,18 +957,15 @@
         <div>© 2026 Miradeoro Sagl. Tutti i diritti riservati.</div>
         <div>Design premium essenziale · Quotazioni indicative al grammo</div>
       </div>
-        <div>Quotazioni indicative; per live pricing serve una fonte dati con licenza/API e un piccolo backend.</div>
-      </div>
     </div>
-  </footer>
+    <a href="https://wa.me/41912104667" target="_blank" style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;font-weight:bold;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:999;">
+    WhatsApp
+  </a>
+
+</footer>
 
   <script>
-    const prices = {
-      spot: 86.8,
-      buy: 86.0,
-      sell: 88.0
-    };
-
+    const prices = { spot: 86.8, buy: 86.0, sell: 88.0 };
     const calcBtn = document.getElementById('calcBtn');
     calcBtn.addEventListener('click', function () {
       const grams = parseFloat(document.getElementById('grams').value || '0');
@@ -955,42 +973,9 @@
       const price = prices[type];
       const total = grams * price;
       const label = type === 'spot' ? 'Spot' : type === 'buy' ? 'Acquisto' : 'Vendita';
-
       document.getElementById('calcValue').textContent = `CHF ${total.toFixed(2)}`;
       document.getElementById('calcDetails').textContent = `${grams.toFixed(2)} g × CHF ${price.toFixed(2)} / g (${label})`;
     });
   </script>
-
-<!-- LOGO FILES (copia questi file nel repo) -->
-<!-- favicon.svg -->
-<!-- logo.svg -->
-
-<!-- favicon.svg -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fff3c4"/>
-      <stop offset="50%" stop-color="#d4a94d"/>
-      <stop offset="100%" stop-color="#a87410"/>
-    </linearGradient>
-  </defs>
-  <text x="50%" y="58%" text-anchor="middle" font-size="26" font-weight="900" fill="url(#g)">MD</text>
-</svg>
-
-<!-- logo.svg (grande) -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#fff3c4"/>
-      <stop offset="40%" stop-color="#f0c96a"/>
-      <stop offset="70%" stop-color="#d4a94d"/>
-      <stop offset="100%" stop-color="#a87410"/>
-    </linearGradient>
-  </defs>
-  <circle cx="100" cy="100" r="80" fill="none" stroke="url(#gold)" stroke-width="4"/>
-  <text x="50%" y="55%" text-anchor="middle" font-size="60" font-weight="900" fill="url(#gold)">MD</text>
-</svg>
-
 </body>
 </html>
-const prices = { spot: 86.8, buy: 86.0, sell: 88.0 };
