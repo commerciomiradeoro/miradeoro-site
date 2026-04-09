@@ -8,6 +8,7 @@
   <meta property="og:title" content="Miradeoro Sagl | Acquisto oro Ticino" />
   <meta property="og:description" content="Quotazioni indicative al grammo, monete e lingotti, contatto rapido da Maroggia in Ticino." />
   <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
     :root {
       --bg: #0b0b0d;
@@ -15,7 +16,6 @@
       --border: rgba(255,255,255,0.10);
       --text: #f5f2ea;
       --muted: #c8c1b2;
-      --gold: #d4a94d;
       --gold-soft: #f3d38a;
       --green: #45d483;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
@@ -73,23 +73,6 @@
       background: linear-gradient(135deg, rgba(247,226,168,0.18), rgba(197,141,29,0.18));
       border: 1px solid rgba(212,169,77,0.28);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 10px 24px rgba(197,141,29,0.22);
-    }
-
-    .logo-mark::before,
-    .logo-mark::after { display:none; }
-
-    .logo-mark::before,
-    .logo-mark::after {
-      content: "";
-      position: absolute;
-      inset: 11px;
-      border: 2px solid rgba(11,11,13,0.75);
-      border-radius: 12px;
-    }
-
-    .logo-mark::after {
-      inset: 18px;
-      border-radius: 999px;
     }
 
     .brand-title {
@@ -200,6 +183,8 @@
       background: linear-gradient(135deg, #efc56d, #c58d1d);
       color: #111;
       box-shadow: 0 16px 35px rgba(197,141,29,0.28);
+      border: none;
+      cursor: pointer;
     }
 
     .btn-secondary {
@@ -237,6 +222,7 @@
       padding: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
     }
+
     .stat-label { color: var(--muted); font-size: 0.92rem; }
     .stat-value { margin-top: 6px; font-size: 1.2rem; font-weight: 800; }
 
@@ -478,7 +464,8 @@
     }
 
     .field-input,
-    .field-select {
+    .field-select,
+    .quick-input {
       width: 100%;
       padding: 14px 16px;
       border-radius: 14px;
@@ -486,6 +473,12 @@
       background: rgba(255,255,255,0.05);
       color: var(--text);
       outline: none;
+    }
+
+    .quick-input {
+      max-width: 140px;
+      padding: 10px 12px;
+      border-radius: 10px;
     }
 
     .calc-actions { margin-top: 18px; }
@@ -574,13 +567,13 @@
       }
 
       .btn,
-      .nav .cta {
+      .nav .cta,
+      .quick-input {
         width: 100%;
+        max-width: none;
       }
     }
   </style>
-  <!-- FAVICON -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 </head>
 <body>
   <header class="topbar">
@@ -596,13 +589,7 @@
                 <stop offset="100%" stop-color="#a87410"/>
               </linearGradient>
             </defs>
-
-            <!-- monogram MD -->
-            <text x="50%" y="58%" text-anchor="middle" font-size="26" font-weight="900" fill="url(#goldGrad)" font-family="Arial, sans-serif" letter-spacing="2">
-              MD
-            </text>
-
-            <!-- circle ring -->
+            <text x="50%" y="58%" text-anchor="middle" font-size="26" font-weight="900" fill="url(#goldGrad)" font-family="Arial, sans-serif" letter-spacing="2">MD</text>
             <circle cx="32" cy="32" r="26" fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
           </svg>
         </div>
@@ -619,7 +606,7 @@
         <a href="#monete">Monete</a>
         <a href="#calcolatore">Calcolatore</a>
         <a href="#contatti">Contatti</a>
-        <a class="cta" href="https://wa.me/41912104667" target="_blank" rel="noreferrer">WhatsApp</a>
+        <a class="cta" href="https://wa.me/41912104667" target="_blank" rel="noreferrer noopener">WhatsApp</a>
       </nav>
     </div>
   </header>
@@ -657,6 +644,14 @@
         </div>
 
         <div class="hero-panel" id="quotazioni">
+          <div style="margin-bottom:15px;padding:12px;border:1px solid rgba(255,255,255,0.1);border-radius:12px;">
+            <strong style="font-size:0.9rem;color:#f3d38a;">Aggiorna prezzo oro (CHF/g)</strong><br>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+              <input id="updatePrice" class="quick-input" type="number" step="0.01" placeholder="es. 121.50" />
+              <button onclick="updateGold()" class="btn btn-primary" style="padding:10px 14px;">Aggiorna</button>
+            </div>
+          </div>
+
           <div class="panel-top">
             <div>
               <h2 class="panel-title">Quotazioni metalli</h2>
@@ -676,34 +671,34 @@
 
             <div class="quote-table-row">
               <div><div class="quote-metal-name">Oro</div><div class="quote-small">XAU · per grammo</div></div>
-              <div id="goldSpotChf">CHF 86.80</div>
-              <div id="goldSpotEur">EUR 93.90</div>
-              <div id="goldBuyChf">CHF 86.00</div>
-              <div id="goldSellChf">CHF 88.00</div>
+              <div id="goldSpotChf">CHF 121.50</div>
+              <div id="goldSpotEur">EUR 116.83</div>
+              <div id="goldBuyChf">CHF 119.00</div>
+              <div id="goldSellChf">CHF 124.00</div>
             </div>
 
             <div class="quote-table-row">
               <div><div class="quote-metal-name">Argento</div><div class="quote-small">XAG · per grammo</div></div>
-              <div id="silverSpotChf">CHF 0.84</div>
-              <div id="silverSpotEur">EUR 0.90</div>
-              <div id="silverBuyChf">CHF 0.82</div>
-              <div id="silverSellChf">CHF 0.88</div>
+              <div>CHF 0.84</div>
+              <div>EUR 0.81</div>
+              <div>CHF 0.82</div>
+              <div>CHF 0.88</div>
             </div>
 
             <div class="quote-table-row">
               <div><div class="quote-metal-name">Platino</div><div class="quote-small">XPT · per grammo</div></div>
-              <div id="platinumSpotChf">CHF 27.30</div>
-              <div id="platinumSpotEur">EUR 29.60</div>
-              <div id="platinumBuyChf">CHF 26.80</div>
-              <div id="platinumSellChf">CHF 28.00</div>
+              <div>CHF 27.30</div>
+              <div>EUR 26.25</div>
+              <div>CHF 26.80</div>
+              <div>CHF 28.00</div>
             </div>
 
             <div class="quote-table-row">
               <div><div class="quote-metal-name">Palladio</div><div class="quote-small">XPD · per grammo</div></div>
-              <div id="palladiumSpotChf">CHF 28.90</div>
-              <div id="palladiumSpotEur">EUR 31.40</div>
-              <div id="palladiumBuyChf">CHF 28.20</div>
-              <div id="palladiumSellChf">CHF 29.80</div>
+              <div>CHF 28.90</div>
+              <div>EUR 27.79</div>
+              <div>CHF 28.20</div>
+              <div>CHF 29.80</div>
             </div>
           </div>
         </div>
@@ -880,7 +875,7 @@
         <div class="calc-card">
           <h3>Contatto rapido</h3>
           <p style="margin-bottom:12px;">Per una risposta immediata utilizza WhatsApp oppure chiamaci direttamente.</p>
-          <a class="btn btn-primary" href="https://wa.me/41912104667" target="_blank">Apri WhatsApp</a>
+          <a class="btn btn-primary" href="https://wa.me/41912104667" target="_blank" rel="noreferrer noopener">Apri WhatsApp</a>
           <div style="height:10px"></div>
           <a class="btn btn-secondary" href="tel:+41912104667">Chiama ora</a>
         </div>
@@ -943,7 +938,7 @@
           <h4>Contatti rapidi</h4>
           <div><a href="tel:+41912104667">091 210 46 67</a></div>
           <div><a href="mailto:commercio@miradeoro.com">commercio@miradeoro.com</a></div>
-          <div><a href="https://wa.me/41912104667" target="_blank" rel="noreferrer">WhatsApp diretto</a></div>
+          <div><a href="https://wa.me/41912104667" target="_blank" rel="noreferrer noopener">WhatsApp diretto</a></div>
         </div>
         <div class="footer-card">
           <h4>Sede</h4>
@@ -958,63 +953,47 @@
         <div>Design premium essenziale · Quotazioni indicative al grammo</div>
       </div>
     </div>
-    <a href="https://wa.me/41912104667" target="_blank" style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;font-weight:bold;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:999;">
-    WhatsApp
-  </a>
 
-</footer>
+    <a href="https://wa.me/41912104667" target="_blank" rel="noreferrer noopener" style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px 18px;border-radius:50px;font-weight:bold;box-shadow:0 10px 30px rgba(0,0,0,0.3);z-index:999;">
+      WhatsApp
+    </a>
+  </footer>
 
   <script>
-    // PREZZI BASE (fallback)
-    let prices = { spot: 86.8, buy: 86.0, sell: 88.0 };
+    const EUR_PER_CHF = 0.962;
+    let prices = JSON.parse(localStorage.getItem('goldPrices')) || { spot: 121.50, buy: 119.00, sell: 124.00 };
 
-    // AGGIORNAMENTO LIVE SEMPLICE (senza API key)
-    async function updatePrices() {
-      try {
-        // cambio EUR -> CHF (fonte pubblica)
-        const fx = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=CHF");
-        const fxData = await fx.json();
-        const eurChf = fxData.rates.CHF;
-
-        // prezzo oro USD (semplificato)
-        const gold = await fetch("https://api.metals.live/v1/spot/gold");
-        const goldData = await gold.json();
-        const goldUsdPerOz = goldData.price;
-
-        // conversione oz -> grammo
-        const goldUsdPerGram = goldUsdPerOz / 31.1035;
-
-        // USD -> CHF (stimato via EUR)
-        const usdChf = eurChf * 0.93;
-        const goldChf = goldUsdPerGram * usdChf;
-
-        prices.spot = goldChf;
-        prices.buy = goldChf * 0.99;
-        prices.sell = goldChf * 1.02;
-
-        // aggiorna UI
-        document.getElementById('goldSpotChf').textContent = `CHF ${goldChf.toFixed(2)}`;
-        document.getElementById('goldBuyChf').textContent = `CHF ${(goldChf*0.99).toFixed(2)}`;
-        document.getElementById('goldSellChf').textContent = `CHF ${(goldChf*1.02).toFixed(2)}`;
-
-      } catch (e) {
-        console.log("Live prices error, uso fallback");
-      }
+    function renderPrices() {
+      document.getElementById('goldSpotChf').textContent = `CHF ${prices.spot.toFixed(2)}`;
+      document.getElementById('goldBuyChf').textContent = `CHF ${prices.buy.toFixed(2)}`;
+      document.getElementById('goldSellChf').textContent = `CHF ${prices.sell.toFixed(2)}`;
+      document.getElementById('goldSpotEur').textContent = `EUR ${(prices.spot * EUR_PER_CHF).toFixed(2)}`;
     }
 
-    // aggiorna ogni 60 sec
-    updatePrices();
-    setInterval(updatePrices, 60000);
-    const calcBtn = document.getElementById('calcBtn');
-    calcBtn.addEventListener('click', function () {
+    function updateGold() {
+      const val = parseFloat(document.getElementById('updatePrice').value);
+      if (!Number.isFinite(val) || val <= 0) return;
+
+      prices.spot = val;
+      prices.buy = val * 0.98;
+      prices.sell = val * 1.02;
+
+      localStorage.setItem('goldPrices', JSON.stringify(prices));
+      renderPrices();
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', function () {
       const grams = parseFloat(document.getElementById('grams').value || '0');
       const type = document.getElementById('priceType').value;
       const price = prices[type];
       const total = grams * price;
       const label = type === 'spot' ? 'Spot' : type === 'buy' ? 'Acquisto' : 'Vendita';
+
       document.getElementById('calcValue').textContent = `CHF ${total.toFixed(2)}`;
       document.getElementById('calcDetails').textContent = `${grams.toFixed(2)} g × CHF ${price.toFixed(2)} / g (${label})`;
     });
+
+    renderPrices();
   </script>
 </body>
 </html>
