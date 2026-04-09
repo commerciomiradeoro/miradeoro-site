@@ -965,7 +965,46 @@
 </footer>
 
   <script>
-    const prices = { spot: 86.8, buy: 86.0, sell: 88.0 };
+    // PREZZI BASE (fallback)
+    let prices = { spot: 86.8, buy: 86.0, sell: 88.0 };
+
+    // AGGIORNAMENTO LIVE SEMPLICE (senza API key)
+    async function updatePrices() {
+      try {
+        // cambio EUR -> CHF (fonte pubblica)
+        const fx = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=CHF");
+        const fxData = await fx.json();
+        const eurChf = fxData.rates.CHF;
+
+        // prezzo oro USD (semplificato)
+        const gold = await fetch("https://api.metals.live/v1/spot/gold");
+        const goldData = await gold.json();
+        const goldUsdPerOz = goldData.price;
+
+        // conversione oz -> grammo
+        const goldUsdPerGram = goldUsdPerOz / 31.1035;
+
+        // USD -> CHF (stimato via EUR)
+        const usdChf = eurChf * 0.93;
+        const goldChf = goldUsdPerGram * usdChf;
+
+        prices.spot = goldChf;
+        prices.buy = goldChf * 0.99;
+        prices.sell = goldChf * 1.02;
+
+        // aggiorna UI
+        document.getElementById('goldSpotChf').textContent = `CHF ${goldChf.toFixed(2)}`;
+        document.getElementById('goldBuyChf').textContent = `CHF ${(goldChf*0.99).toFixed(2)}`;
+        document.getElementById('goldSellChf').textContent = `CHF ${(goldChf*1.02).toFixed(2)}`;
+
+      } catch (e) {
+        console.log("Live prices error, uso fallback");
+      }
+    }
+
+    // aggiorna ogni 60 sec
+    updatePrices();
+    setInterval(updatePrices, 60000);
     const calcBtn = document.getElementById('calcBtn');
     calcBtn.addEventListener('click', function () {
       const grams = parseFloat(document.getElementById('grams').value || '0');
