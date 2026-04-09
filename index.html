@@ -8,21 +8,19 @@
   <style>
     :root {
       --bg: #0b0b0d;
-      --bg-soft: #131316;
       --card: rgba(255,255,255,0.05);
-      --card-strong: rgba(255,255,255,0.08);
       --border: rgba(255,255,255,0.10);
       --text: #f5f2ea;
       --muted: #c8c1b2;
       --gold: #d4a94d;
       --gold-soft: #f3d38a;
+      --green: #45d483;
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
       --radius: 22px;
       --max: 1180px;
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -35,27 +33,15 @@
         linear-gradient(180deg, #0a0a0c 0%, #121215 45%, #0a0a0c 100%);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(16px);
-      background: rgba(10,10,12,0.75);
+      background: rgba(10,10,12,0.78);
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
@@ -135,9 +121,7 @@
       box-shadow: 0 12px 25px rgba(197,141,29,0.22);
     }
 
-    .hero {
-      padding: 72px 0 42px;
-    }
+    .hero { padding: 72px 0 42px; }
 
     .hero-grid {
       display: grid;
@@ -161,7 +145,7 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(2.6rem, 6vw, 5.3rem);
+      font-size: clamp(2.6rem, 6vw, 5.2rem);
       line-height: 0.96;
       letter-spacing: -0.03em;
       max-width: 760px;
@@ -192,7 +176,7 @@
       padding: 15px 22px;
       border-radius: 16px;
       font-weight: 700;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      transition: transform 0.18s ease;
     }
 
     .btn:hover { transform: translateY(-2px); }
@@ -216,33 +200,23 @@
       margin-top: 28px;
     }
 
+    .card,
     .stat-card,
     .hero-panel,
-    .quote-card,
     .service-card,
     .coin-card,
     .contact-card,
-    .notice {
+    .notice,
+    .calc-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    .stat-card {
-      padding: 18px;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .stat-value {
-      margin-top: 6px;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
+    .stat-card { padding: 18px; }
+    .stat-label { color: var(--muted); font-size: 0.92rem; }
+    .stat-value { margin-top: 6px; font-size: 1.2rem; font-weight: 800; }
 
     .hero-panel {
       padding: 24px;
@@ -257,103 +231,21 @@
       margin-bottom: 16px;
     }
 
-    .panel-title {
-      margin: 0;
-      font-size: 1.15rem;
-    }
+    .panel-title { margin: 0; font-size: 1.15rem; }
+    .mini-note { font-size: 0.9rem; color: var(--muted); }
 
     .live-dot {
       width: 10px;
       height: 10px;
       border-radius: 999px;
-      background: #45d483;
+      background: var(--green);
       box-shadow: 0 0 0 8px rgba(69,212,131,0.12);
-    }
-
-    .mini-note {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .quote-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .quote-card {
-      padding: 18px;
-      background: rgba(0,0,0,0.2);
-    }
-
-    .quote-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .quote-code {
-      font-size: 0.83rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .quote-name {
-      margin-top: 4px;
-      font-size: 1.08rem;
-      font-weight: 700;
-    }
-
-    .quote-price {
-      text-align: right;
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-
-    .quote-unit,
-    .quote-extra {
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
-
-    .main-section {
-      padding: 18px 0 28px;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .section-heading h2 {
-      margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-    }
-
-    .section-heading p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 720px;
-      line-height: 1.8;
-    }
-
-    .services-grid,
-    .coins-grid,
-    .contacts-grid,
-    .gallery-grid {
-      display: grid;
-      gap: 18px;
     }
 
     .quote-table {
       display: grid;
       gap: 12px;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
     .quote-table-head,
@@ -380,90 +272,37 @@
       border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .quote-metal-name {
-      font-weight: 700;
+    .quote-metal-name { font-weight: 700; }
+    .quote-small { color: var(--muted); font-size: 0.84rem; margin-top: 4px; }
+
+    .main-section { padding: 18px 0 28px; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
     }
 
-    .quote-small {
-      color: var(--muted);
-      font-size: 0.84rem;
-      margin-top: 4px;
-    }
-
-    .gallery-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .gallery-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 320px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(1.05) contrast(1.02);
-    }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 18px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.78));
-    }
-
-    .gallery-overlay h3 {
-      margin: 0 0 6px;
-      font-size: 1.15rem;
-    }
-
-    .gallery-overlay p {
+    .section-heading h2 {
       margin: 0;
-      color: #e6dece;
-      line-height: 1.7;
-      font-size: 0.94rem;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 720px;
+      line-height: 1.8;
     }
 
     .about-box {
       padding: 24px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
       color: var(--muted);
       line-height: 1.9;
-      margin-top: 18px;
     }
-
-    .footer-rich {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr 0.8fr;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-
-    .footer-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 18px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .footer-card h4 {
-      margin: 0 0 10px;
-      color: var(--text);
-      font-size: 1rem;
-    }
-
-    .footer-card a { color: var(--text); }
 
     .services-grid,
     .coins-grid,
@@ -472,15 +311,14 @@
       gap: 18px;
     }
 
-    .services-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+    .coins-grid { grid-template-columns: repeat(3, 1fr); }
+    .contacts-grid { grid-template-columns: repeat(3, 1fr); }
 
     .service-card,
     .coin-card,
-    .contact-card {
-      padding: 22px;
-    }
+    .contact-card,
+    .calc-card { padding: 22px; }
 
     .service-icon {
       width: 44px;
@@ -497,7 +335,8 @@
 
     .service-card h3,
     .coin-card h3,
-    .contact-card h3 {
+    .contact-card h3,
+    .calc-card h3 {
       margin: 0 0 10px;
       font-size: 1.1rem;
     }
@@ -505,14 +344,11 @@
     .service-card p,
     .coin-card p,
     .contact-card p,
-    .contact-card a {
+    .contact-card a,
+    .calc-card p {
       margin: 0;
       color: var(--muted);
       line-height: 1.8;
-    }
-
-    .coins-grid {
-      grid-template-columns: repeat(3, 1fr);
     }
 
     .coin-card {
@@ -547,21 +383,8 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    .coin-price-label {
-      color: var(--muted);
-      font-size: 0.84rem;
-    }
-
-    .coin-price-value {
-      margin-top: 4px;
-      font-weight: 800;
-      font-size: 1.02rem;
-      color: var(--text);
-    }
-
-    .contacts-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .coin-price-label { color: var(--muted); font-size: 0.84rem; }
+    .coin-price-value { margin-top: 4px; font-weight: 800; font-size: 1.02rem; color: var(--text); }
 
     .contact-top {
       display: flex;
@@ -589,9 +412,72 @@
       line-height: 1.8;
     }
 
-    footer {
-      padding: 30px 0 55px;
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
     }
+
+    .field-label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .field-input,
+    .field-select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      outline: none;
+    }
+
+    .calc-actions { margin-top: 18px; }
+
+    .calc-result {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .calc-result strong {
+      display: block;
+      font-size: 1.25rem;
+      color: var(--gold-soft);
+      margin-bottom: 6px;
+    }
+
+    footer { padding: 30px 0 55px; }
+
+    .footer-rich {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .footer-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .footer-card h4 {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .footer-card a { color: var(--text); }
 
     .footer-inner {
       display: flex;
@@ -610,8 +496,8 @@
       .coins-grid,
       .contacts-grid,
       .stats,
-      .gallery-grid,
-      .footer-rich {
+      .footer-rich,
+      .calc-grid {
         grid-template-columns: 1fr;
       }
 
@@ -620,14 +506,7 @@
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 40px;
-      }
-    }
-
-      .hero {
-        padding-top: 40px;
-      }
+      .hero { padding-top: 40px; }
     }
 
     @media (max-width: 640px) {
@@ -662,9 +541,10 @@
 
       <nav class="nav">
         <a href="#quotazioni">Quotazioni</a>
+        <a href="#chi-siamo">Chi siamo</a>
         <a href="#servizi">Servizi</a>
         <a href="#monete">Monete</a>
-        <a href="#territorio">Territorio</a>
+        <a href="#calcolatore">Calcolatore</a>
         <a href="#contatti">Contatti</a>
         <a class="cta" href="https://wa.me/41912104667" target="_blank" rel="noreferrer">WhatsApp</a>
       </nav>
@@ -679,7 +559,7 @@
           <h1>Valore reale in <span class="gold">oro</span>, argento, lingotti e monete.</h1>
           <p class="hero-text">
             Miradeoro Sagl offre un servizio diretto, riservato e professionale per la compravendita di metalli preziosi e monete da investimento,
-            con quotazioni indicative, assistenza rapida e contatto immediato.
+            con quotazioni indicative al grammo, assistenza rapida e contatto immediato.
           </p>
 
           <div class="hero-actions">
@@ -694,7 +574,7 @@
             </div>
             <div class="stat-card">
               <div class="stat-label">Listino</div>
-              <div class="stat-value">CHF indicativi</div>
+              <div class="stat-value">CHF / EUR al grammo</div>
             </div>
             <div class="stat-card">
               <div class="stat-label">Contatto</div>
@@ -707,22 +587,9 @@
           <div class="panel-top">
             <div>
               <h2 class="panel-title">Quotazioni metalli</h2>
-              <div class="mini-note">Valori indicativi in CHF per oncia troy</div>
+              <div class="mini-note">Valori indicativi per grammo (g)</div>
             </div>
             <div class="live-dot"></div>
-          </div>
-
-          <div class="quote-list">
-            <div class="quote-card">
-              <div class="quote-row">
-                <div>
-                  <div class="quote-code">Benchmark</div>
-                  <div class="quote-name">Struttura prezzi</div>
-                </div>
-                <div class="quote-price">CHF / EUR</div>
-              </div>
-              <div class="quote-extra">Spot indicativo con colonne acquisto e vendita</div>
-            </div>
           </div>
 
           <div class="quote-table">
@@ -730,47 +597,47 @@
               <div>Metallo</div>
               <div>Spot CHF</div>
               <div>Spot EUR</div>
-              <div>Acquisto</div>
-              <div>Vendita</div>
+              <div>Acquisto CHF</div>
+              <div>Vendita CHF</div>
             </div>
 
             <div class="quote-table-row">
-              <div><div class="quote-metal-name">Oro</div><div class="quote-small">XAU · per oz t</div></div>
-              <div>CHF 2'700</div>
-              <div>EUR 2'920</div>
-              <div>CHF 2'680</div>
-              <div>CHF 2'740</div>
+              <div><div class="quote-metal-name">Oro</div><div class="quote-small">XAU · per grammo</div></div>
+              <div id="goldSpotChf">CHF 86.80</div>
+              <div id="goldSpotEur">EUR 93.90</div>
+              <div id="goldBuyChf">CHF 86.00</div>
+              <div id="goldSellChf">CHF 88.00</div>
             </div>
 
             <div class="quote-table-row">
-              <div><div class="quote-metal-name">Argento</div><div class="quote-small">XAG · per oz t</div></div>
-              <div>CHF 26</div>
-              <div>EUR 28</div>
-              <div>CHF 25.50</div>
-              <div>CHF 26.80</div>
+              <div><div class="quote-metal-name">Argento</div><div class="quote-small">XAG · per grammo</div></div>
+              <div id="silverSpotChf">CHF 0.84</div>
+              <div id="silverSpotEur">EUR 0.90</div>
+              <div id="silverBuyChf">CHF 0.82</div>
+              <div id="silverSellChf">CHF 0.88</div>
             </div>
 
             <div class="quote-table-row">
-              <div><div class="quote-metal-name">Platino</div><div class="quote-small">XPT · per oz t</div></div>
-              <div>CHF 850</div>
-              <div>EUR 920</div>
-              <div>CHF 840</div>
-              <div>CHF 870</div>
+              <div><div class="quote-metal-name">Platino</div><div class="quote-small">XPT · per grammo</div></div>
+              <div id="platinumSpotChf">CHF 27.30</div>
+              <div id="platinumSpotEur">EUR 29.60</div>
+              <div id="platinumBuyChf">CHF 26.80</div>
+              <div id="platinumSellChf">CHF 28.00</div>
             </div>
 
             <div class="quote-table-row">
-              <div><div class="quote-metal-name">Palladio</div><div class="quote-small">XPD · per oz t</div></div>
-              <div>CHF 900</div>
-              <div>EUR 975</div>
-              <div>CHF 885</div>
-              <div>CHF 925</div>
+              <div><div class="quote-metal-name">Palladio</div><div class="quote-small">XPD · per grammo</div></div>
+              <div id="palladiumSpotChf">CHF 28.90</div>
+              <div id="palladiumSpotEur">EUR 31.40</div>
+              <div id="palladiumBuyChf">CHF 28.20</div>
+              <div id="palladiumSellChf">CHF 29.80</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="main-section" id="servizi">
+    <section class="main-section" id="chi-siamo">
       <div class="container">
         <div class="section-heading">
           <div>
@@ -779,10 +646,10 @@
           </div>
         </div>
 
-        <div class="about-box">
+        <div class="card about-box">
           Operiamo in Ticino con un’impostazione sobria e professionale, dedicata a chi desidera acquistare o vendere oro, argento, platino,
-          palladio, monete da investimento e lingotti. La pagina è strutturata per mostrare quotazioni in CHF ed EUR, livelli indicativi di acquisto
-          e vendita, oltre a un contatto diretto per richieste personalizzate, disponibilità e appuntamenti.
+          palladio, monete da investimento e lingotti. La pagina è strutturata per mostrare quotazioni in CHF ed EUR al grammo, livelli indicativi
+          di acquisto e vendita, oltre a un contatto diretto per richieste personalizzate, disponibilità e appuntamenti.
         </div>
       </div>
     </section>
@@ -888,6 +755,46 @@
       </div>
     </section>
 
+    <section class="main-section" id="calcolatore">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Calcolatore oro</h2>
+            <p>Calcola rapidamente il valore indicativo dell’oro in base ai grammi e al tipo di prezzo selezionato.</p>
+          </div>
+        </div>
+
+        <div class="calc-grid">
+          <div class="calc-card">
+            <h3>Inserisci i dati</h3>
+            <label class="field-label" for="grams">Grammi</label>
+            <input class="field-input" id="grams" type="number" min="0" step="0.01" placeholder="es. 10" />
+
+            <div style="height:14px"></div>
+
+            <label class="field-label" for="priceType">Tipo prezzo</label>
+            <select class="field-select" id="priceType">
+              <option value="spot">Spot CHF/g</option>
+              <option value="buy">Acquisto CHF/g</option>
+              <option value="sell">Vendita CHF/g</option>
+            </select>
+
+            <div class="calc-actions">
+              <button class="btn btn-primary" id="calcBtn" type="button">Calcola valore</button>
+            </div>
+          </div>
+
+          <div class="calc-card">
+            <h3>Risultato</h3>
+            <div class="calc-result">
+              <strong id="calcValue">CHF 0.00</strong>
+              <div id="calcDetails">Inserisci i grammi e seleziona il tipo di prezzo.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="main-section" id="contatti">
       <div class="container">
         <div class="section-heading">
@@ -932,48 +839,6 @@
         </div>
       </div>
     </section>
-
-    <section class="main-section" id="territorio">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <h2>Territorio</h2>
-            <p>Una presenza legata al lago di Lugano e al territorio di Maroggia, Melide e Bissone. Inserisci qui le tue immagini migliori in alta qualità.</p>
-          </div>
-        </div>
-
-        <div class="gallery-grid">
-          <article class="gallery-card">
-            <img src="images/maroggia.jpg" alt="Veduta elegante di Maroggia sul lago" />
-            <div class="gallery-overlay">
-              <h3>Maroggia</h3>
-              <p>Immagine panoramica del lago e del territorio, ideale per trasmettere solidità locale e raffinatezza.</p>
-            </div>
-          </article>
-
-          <article class="gallery-card">
-            <img src="images/melide.jpg" alt="Veduta suggestiva di Melide" />
-            <div class="gallery-overlay">
-              <h3>Melide</h3>
-              <p>Vista luminosa e prestigiosa del Ceresio, da usare per rafforzare il lato premium del marchio.</p>
-            </div>
-          </article>
-
-          <article class="gallery-card">
-            <img src="images/bissone.jpg" alt="Panorama di Bissone sul lago di Lugano" />
-            <div class="gallery-overlay">
-              <h3>Bissone</h3>
-              <p>Scenario elegante e riconoscibile, perfetto per completare l’identità visiva della pagina.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="notice">
-          Per mostrare immagini reali sul sito GitHub Pages, carica nel repository una cartella <strong>images</strong> con i file <strong>maroggia.jpg</strong>,
-          <strong>melide.jpg</strong> e <strong>bissone.jpg</strong>.
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -1003,5 +868,25 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const prices = {
+      spot: 86.8,
+      buy: 86.0,
+      sell: 88.0
+    };
+
+    const calcBtn = document.getElementById('calcBtn');
+    calcBtn.addEventListener('click', function () {
+      const grams = parseFloat(document.getElementById('grams').value || '0');
+      const type = document.getElementById('priceType').value;
+      const price = prices[type];
+      const total = grams * price;
+      const label = type === 'spot' ? 'Spot' : type === 'buy' ? 'Acquisto' : 'Vendita';
+
+      document.getElementById('calcValue').textContent = `CHF ${total.toFixed(2)}`;
+      document.getElementById('calcDetails').textContent = `${grams.toFixed(2)} g × CHF ${price.toFixed(2)} / g (${label})`;
+    });
+  </script>
 </body>
 </html>
