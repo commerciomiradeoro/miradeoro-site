@@ -655,7 +655,7 @@
           <div class="panel-top">
             <div>
               <h2 class="panel-title">Quotazioni metalli</h2>
-              <div class="mini-note">Quotazione oro live da sorgente esterna · al grammo (g)</div>
+              <div class="mini-note"><span id="liveStatusText">Quotazione oro live da sorgente esterna · al grammo (g)</span></div>
             </div>
             <div class="live-dot"></div>
           </div>
@@ -773,11 +773,11 @@
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value">CHF 2'860</div>
+                <div class="coin-price-value" id="krugerrandBuy">CHF 2'860</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value">CHF 2'975</div>
+                <div class="coin-price-value" id="krugerrandSell">CHF 2'975</div>
               </div>
             </div>
           </article>
@@ -792,11 +792,11 @@
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value">CHF 540</div>
+                <div class="coin-price-value" id="vreneliBuy">CHF 540</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value">CHF 600</div>
+                <div class="coin-price-value" id="vreneliSell">CHF 600</div>
               </div>
             </div>
           </article>
@@ -811,11 +811,11 @@
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value">CHF 9'350</div>
+                <div class="coin-price-value" id="bar100Buy">CHF 9'350</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value">CHF 9'670</div>
+                <div class="coin-price-value" id="bar100Sell">CHF 9'670</div>
               </div>
             </div>
           </article>
@@ -921,7 +921,7 @@
         </div>
 
         <div class="notice">
-          La quotazione dell’oro viene letta da una sorgente esterna tramite endpoint dedicato. I livelli di acquisto e vendita sono calcolati automaticamente a partire dal prezzo spot visualizzato.
+          La quotazione dell’oro viene letta da una sorgente esterna tramite endpoint dedicato. I livelli di acquisto e vendita sono calcolati automaticamente a partire dal prezzo spot visualizzato. Monete e lingotti oro vengono ricalcolati automaticamente dal prezzo dell’oro live con premio operativo incorporato.
         </div>
       </div>
     </section>
@@ -961,15 +961,72 @@
 
   <script>
     const EUR_PER_CHF = 0.962;
-    const WORKER_URL = "https://rough-bird-8682.miradeoroquote.commercio.workers.dev";
+    const WORKER_URL = "https://rough-bird-8682miradeoroquote.commercio.workers.dev";
+
+    const moneyChf = new Intl.NumberFormat('it-CH', {
+      style: 'currency',
+      currency: 'CHF',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+
+    const moneyEur = new Intl.NumberFormat('it-CH', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
     let prices = { spot: 121.50, buy: 119.00, sell: 124.00 };
+    let lastLiveUpdate = null;
+
+    function setLiveStatus(text, ok = true) {
+      const el = document.getElementById('liveStatusText');
+      if (!el) return;
+      el.textContent = text;
+      el.style.color = ok ? 'var(--muted)' : '#ffb4b4';
+    }
+
+    function formatChf(value) {
+      return moneyChf.format(value);
+    }
+
+    function formatEur(value) {
+      return moneyEur.format(value);
+    }
+
+    function updateGoldProducts() {
+      const krugPureGold = 31.1035;
+      const vreneliPureGold = 6.45 * 0.9;
+      const bar100PureGold = 100;
+
+      const krugBuy = prices.buy * krugPureGold + 35;
+      const krugSell = prices.sell * krugPureGold + 85;
+
+      const vreneliBuy = prices.buy * vreneliPureGold + 12;
+      const vreneliSell = prices.sell * vreneliPureGold + 42;
+
+      const bar100Buy = prices.buy * bar100PureGold + 80;
+      const bar100Sell = prices.sell * bar100PureGold + 180;
+
+      document.getElementById('krugerrandBuy').textContent = formatChf(krugBuy);
+      document.getElementById('krugerrandSell').textContent = formatChf(krugSell);
+      document.getElementById('vreneliBuy').textContent = formatChf(vreneliBuy);
+      document.getElementById('vreneliSell').textContent = formatChf(vreneliSell);
+      document.getElementById('bar100Buy').textContent = formatChf(bar100Buy);
+      document.getElementById('bar100Sell').textContent = formatChf(bar100Sell);
+    }
 
     function renderPrices() {
-      document.getElementById('goldSpotChf').textContent = `CHF ${prices.spot.toFixed(2)}`;
-      document.getElementById('goldBuyChf').textContent = `CHF ${prices.buy.toFixed(2)}`;
-      document.getElementById('goldSellChf').textContent = `CHF ${prices.sell.toFixed(2)}`;
-      document.getElementById('goldSpotEur').textContent = `EUR ${(prices.spot * EUR_PER_CHF).toFixed(2)}`;
+      document.getElementById('goldSpotChf').textContent = formatChf(prices.spot);
+      document.getElementById('goldBuyChf').textContent = formatChf(prices.buy);
+      document.getElementById('goldSellChf').textContent = formatChf(prices.sell);
+      document.getElementById('goldSpotEur').textContent = formatEur(prices.spot * EUR_PER_CHF);
+      updateGoldProducts();
+
+      if (lastLiveUpdate) {
+        setLiveStatus(`Oro live · ultimo aggiornamento ${lastLiveUpdate}`);
+      }
     }
 
     async function fetchGoldLive() {
@@ -977,15 +1034,19 @@
         const response = await fetch(WORKER_URL, { cache: 'no-store' });
         const data = await response.json();
 
-        if (typeof data.spot !== 'number') return;
+        if (typeof data.spot !== 'number') {
+          setLiveStatus('Feed live non disponibile · visualizzazione ultimi valori', false);
+          return;
+        }
 
         prices.spot = Number(data.spot);
         prices.buy = Number(data.buy ?? data.spot * 0.98);
         prices.sell = Number(data.sell ?? data.spot * 1.02);
+        lastLiveUpdate = new Date().toLocaleTimeString('it-CH', { hour: '2-digit', minute: '2-digit' });
 
         renderPrices();
       } catch (error) {
-        console.log('Errore caricamento quotazione oro live');
+        setLiveStatus('Feed live non disponibile · visualizzazione ultimi valori', false);
       }
     }
 
@@ -996,6 +1057,7 @@
       prices.spot = val;
       prices.buy = val * 0.98;
       prices.sell = val * 1.02;
+      lastLiveUpdate = 'manuale';
 
       renderPrices();
     }
@@ -1007,8 +1069,8 @@
       const total = grams * price;
       const label = type === 'spot' ? 'Spot' : type === 'buy' ? 'Acquisto' : 'Vendita';
 
-      document.getElementById('calcValue').textContent = `CHF ${total.toFixed(2)}`;
-      document.getElementById('calcDetails').textContent = `${grams.toFixed(2)} g × CHF ${price.toFixed(2)} / g (${label})`;
+      document.getElementById('calcValue').textContent = formatChf(total);
+      document.getElementById('calcDetails').textContent = `${grams.toFixed(2)} g × ${formatChf(price)} / g (${label})`;
     });
 
     renderPrices();
