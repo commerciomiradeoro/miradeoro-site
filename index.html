@@ -761,7 +761,7 @@
         <div class="section-heading">
           <div>
             <h2>Selezione monete e lingotti</h2>
-            <p>Valori indicativi in CHF. I prezzi possono essere aggiornati in base al mercato, alla disponibilità e allo spread applicato.</p>
+            <p>Prezzi indicativi automatici in CHF: monete acquistate al 95% e vendute al 105% del valore dell’oro fino. I lingotti mantengono il listino dedicato. Valori soggetti a conferma e disponibilità.</p>
           </div>
         </div>
 
@@ -770,17 +770,18 @@
             <h3>Krugerrand 1 oz</h3>
             <div class="coin-meta">
               <span>Metallo: Oro</span>
-              <span>Peso: 31.1 g</span>
+              <span>Peso lordo: 33.93 g</span>
+              <span>Oro fino: 31.1035 g</span>
               <span>Purezza: 916.7‰</span>
             </div>
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value" id="krugerrandBuy">CHF 2'860</div>
+                <div class="coin-price-value" id="krugerrandBuy">—</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value" id="krugerrandSell">CHF 2'975</div>
+                <div class="coin-price-value" id="krugerrandSell">—</div>
               </div>
             </div>
           </article>
@@ -789,17 +790,58 @@
             <h3>Vreneli 20 Franchi</h3>
             <div class="coin-meta">
               <span>Metallo: Oro</span>
-              <span>Peso: 6.45 g</span>
+              <span>Peso lordo: 6.4516 g</span>
+              <span>Oro fino: 5.80644 g</span>
               <span>Purezza: 900‰</span>
             </div>
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value" id="vreneliBuy">CHF 540</div>
+                <div class="coin-price-value" id="vreneliBuy">—</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value" id="vreneliSell">CHF 600</div>
+                <div class="coin-price-value" id="vreneliSell">—</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="coin-card">
+            <h3>Sterlina d’oro</h3>
+            <div class="coin-meta">
+              <span>Metallo: Oro</span>
+              <span>Peso lordo: 7.9881 g</span>
+              <span>Oro fino: 7.32238 g</span>
+              <span>Purezza: 916.7‰</span>
+            </div>
+            <div class="coin-prices">
+              <div>
+                <div class="coin-price-label">Acquisto</div>
+                <div class="coin-price-value" id="sterlinaBuy">—</div>
+              </div>
+              <div>
+                <div class="coin-price-label">Vendita</div>
+                <div class="coin-price-value" id="sterlinaSell">—</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="coin-card">
+            <h3>Marengo 20 Franchi</h3>
+            <div class="coin-meta">
+              <span>Metallo: Oro</span>
+              <span>Peso lordo: 6.4516 g</span>
+              <span>Oro fino: 5.80644 g</span>
+              <span>Purezza: 900‰</span>
+            </div>
+            <div class="coin-prices">
+              <div>
+                <div class="coin-price-label">Acquisto</div>
+                <div class="coin-price-value" id="marengoBuy">—</div>
+              </div>
+              <div>
+                <div class="coin-price-label">Vendita</div>
+                <div class="coin-price-value" id="marengoSell">—</div>
               </div>
             </div>
           </article>
@@ -814,11 +856,11 @@
             <div class="coin-prices">
               <div>
                 <div class="coin-price-label">Acquisto</div>
-                <div class="coin-price-value" id="bar100Buy">CHF 9'350</div>
+                <div class="coin-price-value" id="bar100Buy">—</div>
               </div>
               <div>
                 <div class="coin-price-label">Vendita</div>
-                <div class="coin-price-value" id="bar100Sell">CHF 9'670</div>
+                <div class="coin-price-value" id="bar100Sell">—</div>
               </div>
             </div>
           </article>
@@ -924,7 +966,7 @@
         </div>
 
         <div class="notice">
-          Le quotazioni sono lette da una sorgente esterna tramite endpoint dedicato, quando disponibili. I livelli di acquisto e vendita sono calcolati automaticamente a partire dal prezzo spot visualizzato. Monete e lingotti oro vengono ricalcolati automaticamente dal prezzo dell’oro live con premio operativo incorporato.
+          Le quotazioni sono lette da una sorgente esterna tramite endpoint dedicato, quando disponibili. I livelli di acquisto e vendita sono calcolati automaticamente a partire dal prezzo spot visualizzato. Le monete d’oro sono calcolate automaticamente sul contenuto d’oro fino: acquisto 95% e vendita 105% dello spot. I lingotti seguono il listino dedicato.
         </div>
       </div>
     </section>
@@ -972,12 +1014,24 @@
     function formatChf(v){return moneyChf.format(v)}
     function formatEur(v){return moneyEur.format(v)}
     function setLiveStatus(t,ok=true){const e=document.getElementById('liveStatusText');e.textContent=t;e.style.color=ok?'var(--muted)':'#ffb4b4'}
+    // Prezzi monete calcolati sul valore spot dell'oro fino.
+    const COIN_BUY_FACTOR = 0.95;
+    const COIN_SELL_FACTOR = 1.05;
     function updateGoldProducts(){
-      const items=[['krugerrand',31.1035,35,85],['vreneli',6.45*.9,12,42],['bar100',100,80,180]];
-      for(const [id,g,b,s] of items){
-        document.getElementById(id+'Buy').textContent=formatChf(prices.buy*g+b);
-        document.getElementById(id+'Sell').textContent=formatChf(prices.sell*g+s);
+      if(!Number.isFinite(prices.spot) || prices.spot <= 0) return;
+      const coins=[
+        ['krugerrand',31.1035],
+        ['vreneli',5.80644],
+        ['sterlina',7.32238],
+        ['marengo',5.80644]
+      ];
+      for(const [id,fineGoldGrams] of coins){
+        document.getElementById(id+'Buy').textContent=formatChf(prices.spot*fineGoldGrams*COIN_BUY_FACTOR);
+        document.getElementById(id+'Sell').textContent=formatChf(prices.spot*fineGoldGrams*COIN_SELL_FACTOR);
       }
+      // Il lingotto da 100 g mantiene il precedente criterio commerciale.
+      document.getElementById('bar100Buy').textContent=formatChf(prices.buy*100+80);
+      document.getElementById('bar100Sell').textContent=formatChf(prices.sell*100+180);
     }
     function renderMetal(id,values){
       const fields=['SpotChf','SpotEur','BuyChf','SellChf'];
